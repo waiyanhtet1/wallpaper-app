@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { firebase } from "../config";
-import { wp } from "../helpers/common";
 import CategoryItem from "./categoryItem";
 
 const Categories = ({ selectedCategory, setSelectedCategory }) => {
@@ -59,28 +58,35 @@ const Categories = ({ selectedCategory, setSelectedCategory }) => {
   };
 
   return (
-    <FlatList
-      horizontal
-      contentContainerStyle={styles.flatlistContainer}
-      showsHorizontalScrollIndicator={false}
-      data={combineDuplicatesByDate(categories)}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item, index }) => (
-        <CategoryItem
-          item={item}
-          index={index}
-          selectCategory={selectedCategory}
-          setSelectCategory={setSelectedCategory}
-        />
-      )}
-    />
+    <View style={styles.container}>
+      <FlatList
+        // horizontal
+        numColumns={2}
+        contentContainerStyle={styles.flatlistContainer}
+        showsHorizontalScrollIndicator={false}
+        data={combineDuplicatesByDate(categories)}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item, index }) => (
+          <CategoryItem
+            item={item}
+            index={index}
+            selectCategory={selectedCategory}
+            setSelectCategory={setSelectedCategory}
+          />
+        )}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
   flatlistContainer: {
-    paddingHorizontal: wp(4),
-    gap: 8,
+    gap: 5,
+    // paddingHorizontal: wp(-4),
   },
 });
 

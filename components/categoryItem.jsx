@@ -15,10 +15,9 @@ const CategoryItem = ({ item, index, selectCategory, setSelectCategory }) => {
 
   return (
     <Animated.View
-      entering={FadeInRight.delay(index * 200)
-        .duration(1000)
-        .springify()
-        .damping(14)}
+      entering={FadeInRight.delay(index * 50)
+        .duration(50)
+        .springify()}
     >
       <Pressable
         onPress={() => setSelectCategory(item.date)}
@@ -32,11 +31,12 @@ const CategoryItem = ({ item, index, selectCategory, setSelectCategory }) => {
 
 const styles = StyleSheet.create({
   category: {
-    padding: 12,
-    paddingHorizontal: 16,
+    padding: 10,
+    paddingHorizontal: 15,
     borderRadius: theme.radius.sm,
     borderWidth: 1,
     borderColor: theme.colors.neutral(0.1),
+    marginLeft: 5,
   },
   text: {
     fontSize: hp(1.8),

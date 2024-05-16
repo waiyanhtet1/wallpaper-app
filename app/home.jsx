@@ -1,4 +1,4 @@
-import { AntDesign, Feather, FontAwesome6 } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
 import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
@@ -6,11 +6,9 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Categories from "../components/categores";
 import FilterModel from "../components/filterModel";
 import ImageGrid from "../components/imageGrid";
 import { firebase } from "../config";
@@ -21,7 +19,6 @@ const HomeScreen = () => {
   const top = useSafeAreaInsets();
   const paddingTop = top > 0 ? top + 10 : 30;
 
-  const [search, setSearch] = useState("");
   const [posts, setPosts] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("9 July 2023");
@@ -86,39 +83,24 @@ const HomeScreen = () => {
         <ActivityIndicator size="large" />
       ) : (
         <ScrollView contentContainerStyle={{ gap: 15 }}>
-          {/* search bar */}
-          <View style={styles.searchBar}>
-            <View style={styles.searchIcon}>
-              <Feather name="search" size={24} color="black" />
-            </View>
-            <TextInput
-              placeholder="Search..."
-              style={styles.searchInput}
-              value={search}
-              onChangeText={(value) => setSearch(value)}
-            />
-            {search && (
-              <Pressable style={styles.closeIcon}>
-                <AntDesign
-                  name="close"
-                  size={24}
-                  color={theme.colors.neutral(0.6)}
-                />
-              </Pressable>
-            )}
-          </View>
+          {/* result date */}
+          <Text style={styles.resultDate}>❤ in "{selectedCategory}"</Text>
 
           {/* categories */}
-          <View style={styles.categories}>
+          {/* <View style={styles.categories}>
             <Categories
               selectedCategory={selectedCategory}
               setSelectedCategory={setSelectedCategory}
             />
-          </View>
+          </View> */}
 
           {/* image gird */}
           <View>{posts.length > 0 && <ImageGrid posts={posts} />}</View>
-          <FilterModel bottomSheetModalRef={bottomSheetModalRef} />
+          <FilterModel
+            bottomSheetModalRef={bottomSheetModalRef}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
         </ScrollView>
       )}
     </View>
@@ -141,30 +123,12 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeight.semibold,
     color: theme.colors.neutral(0.9),
   },
-  searchBar: {
-    marginHorizontal: wp(4),
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: theme.colors.white,
-    padding: 6,
-    borderRadius: theme.radius.lg,
-    paddingLeft: 10,
-  },
-  searchIcon: {
-    padding: 8,
-  },
-
-  searchInput: {
-    flex: 1,
-    borderRadius: theme.radius.sm,
-    paddingVertical: 10,
-    fontSize: hp(1.8),
-  },
-  closeIcon: {
-    backgroundColor: theme.colors.neutral(0.1),
-    padding: 8,
-    borderRadius: theme.radius.sm,
+  resultDate: {
+    fontSize: hp(2.3),
+    fontWeight: theme.fontWeight.bold,
+    paddingHorizontal: wp(4),
+    paddingVertical: wp(4),
+    alignSelf: "center",
   },
 });
 
