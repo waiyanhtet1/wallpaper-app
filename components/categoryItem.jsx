@@ -3,11 +3,16 @@ import Animated, { FadeInRight } from "react-native-reanimated";
 import { theme } from "../constants/theme";
 import { hp } from "../helpers/common";
 
-const CategoryItem = ({ title, index, category, setCategory }) => {
+const CategoryItem = ({ item, index, selectCategory, setSelectCategory }) => {
   const color =
-    category === title ? theme.colors.white : theme.colors.neutral(0.8);
+    selectCategory === item.date
+      ? theme.colors.white
+      : theme.colors.neutral(0.8);
   const backgroundColor =
-    category === title ? theme.colors.neutral(0.8) : theme.colors.white;
+    selectCategory === item.date
+      ? theme.colors.neutral(0.8)
+      : theme.colors.white;
+
   return (
     <Animated.View
       entering={FadeInRight.delay(index * 200)
@@ -16,10 +21,10 @@ const CategoryItem = ({ title, index, category, setCategory }) => {
         .damping(14)}
     >
       <Pressable
-        onPress={() => setCategory(title)}
+        onPress={() => setSelectCategory(item.date)}
         style={[styles.category, { backgroundColor }]}
       >
-        <Text style={(styles.text, { color })}>{title}</Text>
+        <Text style={(styles.text, { color })}>{item.date}</Text>
       </Pressable>
     </Animated.View>
   );

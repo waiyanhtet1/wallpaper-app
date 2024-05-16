@@ -22,17 +22,20 @@ const HomeScreen = () => {
 
   const [search, setSearch] = useState("");
   const [posts, setPosts] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("9 July 2023");
+
   const postRef = firebase
     .firestore()
     .collection("postDB")
     .orderBy("date", "desc")
-    .limit(6);
-  const [isLoading, setisLoading] = useState(false);
+    .where("date", "==", selectedCategory);
 
   const getPosts = () => {
     setisLoading(true);
     postRef.onSnapshot((querySnapshot) => {
       const postData = [];
+
       querySnapshot.forEach((doc) => {
         const { date, image } = doc.data();
         postData.push({
@@ -48,7 +51,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [selectedCategory]);
 
   return (
     <View style={[styles.container, { paddingTop }]}>
@@ -94,7 +97,10 @@ const HomeScreen = () => {
 
           {/* categories */}
           <View style={styles.categories}>
-            <Categories />
+            <Categories
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+            />
           </View>
 
           {/* image gird */}
