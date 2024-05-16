@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
     padding: 12,
     paddingHorizontal: 16,
     borderRadius: theme.radius.sm,
+    borderWidth: 1,
+    borderColor: theme.colors.neutral(0.1),
   },
   text: {
     fontSize: hp(1.8),

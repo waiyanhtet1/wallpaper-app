@@ -1,5 +1,5 @@
 import { AntDesign, Feather, FontAwesome6 } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Pressable,
@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Categories from "../components/categores";
+import FilterModel from "../components/filterModel";
 import ImageGrid from "../components/imageGrid";
 import { firebase } from "../config";
 import { theme } from "../constants/theme";
@@ -24,6 +25,9 @@ const HomeScreen = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("9 July 2023");
+
+  // for bottomModel
+  const bottomSheetModalRef = useRef(null);
 
   const postRef = firebase
     .firestore()
@@ -53,6 +57,15 @@ const HomeScreen = () => {
     getPosts();
   }, [selectedCategory]);
 
+  // filter Model opener
+  const openFilterModel = () => {
+    bottomSheetModalRef.current.present();
+  };
+
+  const closeFilterModel = () => {
+    bottomSheetModalRef.current.close();
+  };
+
   return (
     <View style={[styles.container, { paddingTop }]}>
       {/* Header */}
@@ -60,7 +73,7 @@ const HomeScreen = () => {
         <Pressable>
           <Text style={styles.title}>My Precious 💖</Text>
         </Pressable>
-        <Pressable>
+        <Pressable onPress={openFilterModel}>
           <FontAwesome6
             name="bars-staggered"
             size={26}
@@ -105,6 +118,7 @@ const HomeScreen = () => {
 
           {/* image gird */}
           <View>{posts.length > 0 && <ImageGrid posts={posts} />}</View>
+          <FilterModel bottomSheetModalRef={bottomSheetModalRef} />
         </ScrollView>
       )}
     </View>
