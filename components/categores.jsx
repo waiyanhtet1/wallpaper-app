@@ -60,8 +60,7 @@ const Categories = ({ selectedCategory, setSelectedCategory }) => {
   return (
     <View style={styles.container}>
       <FlatList
-        // horizontal
-        numColumns={2}
+        numColumns={3}
         contentContainerStyle={styles.flatlistContainer}
         showsHorizontalScrollIndicator={false}
         data={combineDuplicatesByDate(categories)}

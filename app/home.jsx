@@ -86,14 +86,6 @@ const HomeScreen = () => {
           {/* result date */}
           <Text style={styles.resultDate}>❤ in "{selectedCategory}"</Text>
 
-          {/* categories */}
-          {/* <View style={styles.categories}>
-            <Categories
-              selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-            />
-          </View> */}
-
           {/* image gird */}
           <View>{posts.length > 0 && <ImageGrid posts={posts} />}</View>
           <FilterModel

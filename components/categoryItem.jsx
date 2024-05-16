@@ -32,14 +32,14 @@ const CategoryItem = ({ item, index, selectCategory, setSelectCategory }) => {
 const styles = StyleSheet.create({
   category: {
     padding: 10,
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
     borderRadius: theme.radius.sm,
     borderWidth: 1,
     borderColor: theme.colors.neutral(0.1),
-    marginLeft: 5,
+    marginLeft: 8,
   },
   text: {
-    fontSize: hp(1.8),
+    fontSize: hp(1),
   },
 });
 export default CategoryItem;

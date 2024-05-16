@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
     padding: 24,
     justifyContent: "center",
     backgroundColor: "grey",
-    marginVertical: 20,
   },
   contentContainer: {
     flex: 1,
@@ -91,21 +90,23 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingVertical: 10,
-    paddingHorizontal: 10,
   },
   contentTitle: {
     fontSize: hp(2.4),
+    paddingHorizontal: 10,
+    marginBottom: 8,
   },
   yearDate: {
     fontSize: hp(2),
     fontWeight: theme.fontWeight.semibold,
-    marginTop: 10,
+    marginBottom: 10,
+    paddingHorizontal: 20,
   },
   yearList: {
     gap: 10,
   },
   yearContainer: {
-    borderBottomWidth: 1,
+    // borderBottomWidth: 1,
     borderColor: theme.colors.neutral(0.2),
   },
 });
