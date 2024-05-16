@@ -15,22 +15,32 @@ import { firebase } from "../config";
 import { theme } from "../constants/theme";
 import { hp, wp } from "../helpers/common";
 
+let postRef;
+
 const HomeScreen = () => {
   const top = useSafeAreaInsets();
   const paddingTop = top > 0 ? top + 10 : 30;
 
   const [posts, setPosts] = useState([]);
   const [isLoading, setisLoading] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("9 July 2023");
+  const [selectedCategory, setSelectedCategory] = useState("default");
 
   // for bottomModel
   const bottomSheetModalRef = useRef(null);
 
-  const postRef = firebase
-    .firestore()
-    .collection("postDB")
-    .orderBy("date", "desc")
-    .where("date", "==", selectedCategory);
+  if (selectedCategory === "default") {
+    postRef = firebase
+      .firestore()
+      .collection("postDB")
+      .orderBy("date", "desc")
+      .limit(10);
+  } else {
+    postRef = firebase
+      .firestore()
+      .collection("postDB")
+      .orderBy("date", "desc")
+      .where("date", "==", selectedCategory);
+  }
 
   const getPosts = () => {
     setisLoading(true);
@@ -84,7 +94,11 @@ const HomeScreen = () => {
       ) : (
         <ScrollView contentContainerStyle={{ gap: 15 }}>
           {/* result date */}
-          <Text style={styles.resultDate}>❤ in "{selectedCategory}"</Text>
+          {selectedCategory === "default" ? (
+            <Text style={styles.resultDate}>❤</Text>
+          ) : (
+            <Text style={styles.resultDate}>❤ in "{selectedCategory}"</Text>
+          )}
 
           {/* image gird */}
           <View>{posts.length > 0 && <ImageGrid posts={posts} />}</View>

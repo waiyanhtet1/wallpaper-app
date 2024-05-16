@@ -1,7 +1,7 @@
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 import { BlurView } from "expo-blur";
 import React, { useMemo } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import Animated, {
   Extrapolation,
   interpolate,
@@ -18,6 +18,15 @@ const FilterModel = ({
 }) => {
   const snapPoints = useMemo(() => ["70%"], []);
 
+  const color =
+    selectedCategory === "default"
+      ? theme.colors.white
+      : theme.colors.neutral(0.8);
+  const backgroundColor =
+    selectedCategory === "default"
+      ? theme.colors.neutral(0.8)
+      : theme.colors.white;
+
   return (
     <BottomSheetModal
       ref={bottomSheetModalRef}
@@ -28,6 +37,13 @@ const FilterModel = ({
       <BottomSheetView style={styles.contentContainer}>
         <View style={styles.contentContainer}>
           <Text style={styles.contentTitle}>Filter By Date 🗓</Text>
+          {/* default date */}
+          <Pressable
+            style={[styles.defaultDate, { backgroundColor }]}
+            onPress={() => setSelectedCategory("default")}
+          >
+            <Text style={{ color }}>All</Text>
+          </Pressable>
           <View style={styles.yearList}>
             <View style={styles.yearContainer}>
               <Text style={styles.yearDate}>2023</Text>
@@ -108,6 +124,20 @@ const styles = StyleSheet.create({
   yearContainer: {
     // borderBottomWidth: 1,
     borderColor: theme.colors.neutral(0.2),
+  },
+  defaultDate: {
+    padding: 10,
+    paddingHorizontal: 10,
+    borderRadius: theme.radius.sm,
+    borderWidth: 1,
+    borderColor: theme.colors.neutral(0.1),
+    marginLeft: 8,
+    backgroundColor: theme.colors.neutral(0.8),
+    width: 100,
+    marginBottom: 10,
+  },
+  defaultDateText: {
+    color: "white",
   },
 });
 
