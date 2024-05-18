@@ -3,6 +3,7 @@ import { BlurView } from "expo-blur";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import { Image, Pressable, StyleSheet, View } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
 import { theme } from "../constants/theme";
 import { hp, wp } from "../helpers/common";
 
@@ -18,6 +19,15 @@ const ImageScreen = () => {
     };
   };
 
+  const fileName = item.image.split("/")[7].split("-")[0] + ".png";
+  const imageUrl = item.image + ".png";
+  console.log(fileName);
+  console.log(imageUrl);
+
+  // const downloadFile = async()
+
+  const handleDownload = async () => {};
+
   return (
     <BlurView style={containerStyle} tint="dark" intensity={120}>
       <View style={[]}>
@@ -28,16 +38,16 @@ const ImageScreen = () => {
         />
       </View>
       <View style={styles.buttons}>
-        <View>
+        <Animated.View entering={FadeInDown.springify()}>
           <Pressable style={styles.button} onPress={() => router.back()}>
             <AntDesign name="close" size={24} color="white" />
           </Pressable>
-        </View>
-        <View>
-          <Pressable style={styles.button}>
+        </Animated.View>
+        <Animated.View entering={FadeInDown.springify().delay(100)}>
+          <Pressable style={styles.button} onPress={handleDownload}>
             <AntDesign name="download" size={24} color="white" />
           </Pressable>
-        </View>
+        </Animated.View>
       </View>
     </BlurView>
   );
