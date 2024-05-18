@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 import { theme } from "../constants/theme";
 import { getImageSize, wp } from "../helpers/common";
@@ -12,9 +13,11 @@ const ImageCard = ({ item, index, columns }) => {
     return (index + 1) % columns === 0;
   };
 
+  const router = useRouter();
   return (
     <View>
       <Pressable
+        onPress={() => router.push({ pathname: "image", params: { ...item } })}
         style={[styles.imageWrapper, !isInLastRow() && styles.spacing]}
       >
         <Image
