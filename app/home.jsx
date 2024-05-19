@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Timer from "../components/Timer";
 import FilterModel from "../components/filterModel";
 import ImageGrid from "../components/imageGrid";
 import { firebase } from "../config";
@@ -93,11 +94,12 @@ const HomeScreen = () => {
         <ActivityIndicator size="large" />
       ) : (
         <ScrollView contentContainerStyle={{ gap: 15 }}>
+          <Timer targetDate="2023-09-14T00:00:00" />
           {/* result date */}
           {selectedCategory === "default" ? (
             <Text style={styles.resultDate}>❤</Text>
           ) : (
-            <Text style={styles.resultDate}>❤ in "{selectedCategory}"</Text>
+            <Text style={styles.resultDate}>In "{selectedCategory}"</Text>
           )}
 
           {/* image gird */}
@@ -133,7 +135,7 @@ const styles = StyleSheet.create({
     fontSize: hp(2.3),
     fontWeight: theme.fontWeight.bold,
     paddingHorizontal: wp(4),
-    paddingVertical: wp(4),
+    // paddingVertical: wp(4),
     alignSelf: "center",
   },
 });
