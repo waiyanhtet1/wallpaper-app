@@ -1,14 +1,16 @@
 import { BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
 import { BlurView } from "expo-blur";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Animated, {
   Extrapolation,
   interpolate,
   useAnimatedStyle,
 } from "react-native-reanimated";
+import { firebase } from "../config";
 import { theme } from "../constants/theme";
 import { hp } from "../helpers/common";
+import { combineDuplicatesByDate } from "../helpers/dateHandler";
 import Categories from "./categores";
 
 const FilterModel = ({
@@ -17,6 +19,7 @@ const FilterModel = ({
   setSelectedCategory,
 }) => {
   const snapPoints = useMemo(() => ["70%"], []);
+  const [categories, setCategories] = useState([]);
 
   const color =
     selectedCategory === "default"
@@ -26,6 +29,30 @@ const FilterModel = ({
     selectedCategory === "default"
       ? theme.colors.neutral(0.8)
       : theme.colors.white;
+
+  const categoryRef = firebase
+    .firestore()
+    .collection("postDB")
+    .orderBy("date", "desc");
+
+  const getCategory = () => {
+    categoryRef.onSnapshot((querySnapshot) => {
+      const categoryData = [];
+
+      querySnapshot.forEach((doc) => {
+        const { date } = doc.data();
+        categoryData.push({
+          id: doc.id,
+          date,
+        });
+      });
+      setCategories(categoryData);
+    });
+  };
+
+  useEffect(() => {
+    getCategory();
+  }, []);
 
   return (
     <BottomSheetModal
@@ -48,6 +75,7 @@ const FilterModel = ({
             <View style={styles.yearContainer}>
               <Text style={styles.yearDate}>2023</Text>
               <Categories
+                categories={combineDuplicatesByDate(categories)}
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
               />
