@@ -54,6 +54,14 @@ const FilterModel = ({
     getCategory();
   }, []);
 
+  const _2023Data = combineDuplicatesByDate(categories).filter((obj) =>
+    obj["date"].includes("2023")
+  );
+
+  const _2024Data = combineDuplicatesByDate(categories).filter((obj) =>
+    obj["date"].includes("2024")
+  );
+
   return (
     <BottomSheetModal
       ref={bottomSheetModalRef}
@@ -71,17 +79,23 @@ const FilterModel = ({
           >
             <Text style={{ color }}>All</Text>
           </Pressable>
+
           <View style={styles.yearList}>
             <View style={styles.yearContainer}>
-              <Text style={styles.yearDate}>2023</Text>
+              <Text style={styles.yearDate}>2024</Text>
               <Categories
-                categories={combineDuplicatesByDate(categories)}
+                categories={_2024Data}
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
               />
             </View>
             <View style={styles.yearContainer}>
-              <Text style={styles.yearDate}>2024</Text>
+              <Text style={styles.yearDate}>2023</Text>
+              <Categories
+                categories={_2023Data}
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+              />
             </View>
           </View>
         </View>

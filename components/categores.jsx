@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   },
   flatlistContainer: {
     gap: 5,
-    // paddingHorizontal: wp(-4),
   },
 });
 
