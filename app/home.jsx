@@ -96,10 +96,10 @@ const HomeScreen = () => {
         <ScrollView contentContainerStyle={{ gap: 15 }}>
           <Timer targetDate="2023-09-14T00:00:00" />
           {/* result date */}
-          {selectedCategory === "default" ? (
-            <Text style={styles.resultDate}>❤</Text>
-          ) : (
+          {selectedCategory !== "default" ? (
             <Text style={styles.resultDate}>In "{selectedCategory}"</Text>
+          ) : (
+            <Text style={styles.resultDate}>❤</Text>
           )}
 
           {/* image gird */}
