@@ -18,7 +18,7 @@ const FilterModel = ({
   selectedCategory,
   setSelectedCategory,
 }) => {
-  const snapPoints = useMemo(() => ["70%"], []);
+  const snapPoints = useMemo(() => ["90%"], []);
   const [categories, setCategories] = useState([]);
 
   const color =
@@ -89,7 +89,7 @@ const FilterModel = ({
                 setSelectedCategory={setSelectedCategory}
               />
             </View>
-            <View style={styles.yearContainer}>
+            <View style={[styles.yearContainer, styles.yearContinerLast]}>
               <Text style={styles.yearDate}>2023</Text>
               <Categories
                 categories={_2023Data}
@@ -166,6 +166,9 @@ const styles = StyleSheet.create({
   yearContainer: {
     // borderBottomWidth: 1,
     borderColor: theme.colors.neutral(0.2),
+  },
+  yearContinerLast: {
+    marginBottom: 50,
   },
   defaultDate: {
     padding: 10,

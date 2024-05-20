@@ -43,11 +43,11 @@ const ImageScreen = () => {
             <AntDesign name="close" size={24} color="white" />
           </Pressable>
         </Animated.View>
-        <Animated.View entering={FadeInDown.springify().delay(100)}>
+        {/* <Animated.View entering={FadeInDown.springify().delay(100)}>
           <Pressable style={styles.button} onPress={handleDownload}>
             <AntDesign name="download" size={24} color="white" />
           </Pressable>
-        </Animated.View>
+        </Animated.View> */}
       </View>
     </BlurView>
   );
